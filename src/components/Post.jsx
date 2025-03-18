@@ -25,8 +25,7 @@ function Post({ post }) {
     }, [post.content?.rendered]);
 
     return (
-        <div>
-            <h4 className="heading__sec">{post.title?.rendered}</h4>
+        <div>            
             <Toc content={modifiedContent} />
             <div className="category__products wp-content">
                 <div dangerouslySetInnerHTML={{ __html: modifiedContent }} />

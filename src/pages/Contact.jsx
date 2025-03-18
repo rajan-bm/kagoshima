@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import Breadcrumb from "@/components/Breadcrumb";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { DataContext } from "@/context/DataContext";
@@ -14,11 +13,16 @@ function Contact() {
         <>
             <Header />
             <main id="main">
-                {/* <Breadcrumb
-                    posttype = {pages[0].posttype}
-                    title = {pages[0].title}
-                    slug = {pages[0].slug}
-                /> */}
+                <div className="breadcrumb">
+                    <div className="breadcrumb__wrapper">
+                        <ul className="breadcrumb__list">
+                            <li className="breadcrumb__item">
+                                <a href="/" className="breadcrumb__link">お福分け青汁</a>
+                            </li>
+                            <li className="breadcrumb__item">お問い合わせ</li>
+                        </ul>
+                    </div>
+                </div>
                 <section className="contact">
                     <div className="contact-form" id="contact-form">
                         <div className="form-group">

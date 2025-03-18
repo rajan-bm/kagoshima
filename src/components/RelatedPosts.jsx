@@ -1,30 +1,3 @@
-// import { memo } from "react";
-// import Card from "@/components/Card";
-
-// function RelatedPosts({ relatedPosts }) {
-//     return (
-//         <div className="related-posts">
-//             {relatedPosts.length > 0 ? (
-//                 relatedPosts.map((post) => (
-//                     <Card
-//                         catId={post.categories[0]}
-//                         key={post.id}
-//                         title={post.title.rendered}
-//                         image={post.featured_media_url || "/default-image.jpg"}
-//                         date={new Date(post.date).toLocaleDateString()}
-//                         description={post.excerpt.rendered.replace(/<[^>]+>/g, "")}
-//                         slug={post.slug}
-//                     />
-//                 ))
-//             ) : (
-//                 <p>No related posts found.</p>
-//             )}
-//         </div>
-//     );
-// }
-
-// export default memo(RelatedPosts);
-
 import { memo } from "react";
 import Card from "@/components/Card";
 
@@ -36,9 +9,9 @@ function RelatedPosts({ relatedPosts, categories }) {
     };
 
     return (
-        <div className="related-posts">
+        <>
             {relatedPosts.length > 0 ? (
-                relatedPosts.map((post) => (
+                relatedPosts.slice(0, 6).map((post) => (
                     <Card
                         key={post.id}
                         title={post.title.rendered}
@@ -61,7 +34,7 @@ function RelatedPosts({ relatedPosts, categories }) {
             ) : (
                 <p>No related posts found.</p>
             )}
-        </div>
+        </>
     );
 }
 

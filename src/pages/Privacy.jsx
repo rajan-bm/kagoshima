@@ -10,7 +10,7 @@ function Privacy() {
                 <div className="breadcrumb__wrapper">
                     <ul className="breadcrumb__list">
                         <li className="breadcrumb__item">
-                            <a href="./home" className="breadcrumb__link">お福分け青汁</a>
+                            <a href="/" className="breadcrumb__link">お福分け青汁</a>
                         </li>
                         <li className="breadcrumb__item">個人情報保護方針</li>
                     </ul>

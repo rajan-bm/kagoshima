@@ -1,8 +1,20 @@
+import { useState } from "react";
+
 function SidebarShare() {
+    const [copied, setCopied] = useState(false);
+
+    const handleCopyLink = (e) => {
+        e.preventDefault();
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000); // Hide message after 2 seconds
+        });
+    };
+
     return (
         <div className="category__sidebar-share">
             <p className="kagoshima__text">シェアする</p>
-            <div className="social">
+            <div className="social" style={{ position: "relative" }}>
                 <a href="#" className="social__link" target="_blank">
                     <img
                         src="/hoip_headless/assets/img/common/icon_twitter.svg"
@@ -35,7 +47,7 @@ function SidebarShare() {
                         />
                     </div>
                 </a>
-                <a href="#" className="social__link" target="_blank">
+                <a href="#" className="social__link" target="_blank" onClick={handleCopyLink}>
                     <svg
                         height="512px"
                         id="Layer_1"
@@ -55,9 +67,9 @@ function SidebarShare() {
                         </g>
                     </svg>
                 </a>
+                {copied && <span style={{ position: "absolute", right0: "0", bottom: "-15px", color: "green", marginLeft: "10px" }}>Copied!</span>}
             </div>
         </div>
     )
 }
-
 export default SidebarShare;

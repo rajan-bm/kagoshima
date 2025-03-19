@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { DataContext } from "@/context/DataContext";
+import Card from "@/components/Card";
 
 function HomeServices() {
     const { posts, loadPosts, loading } = useContext(DataContext);
@@ -116,43 +116,21 @@ function HomeServices() {
                                                 <p>Loading posts...</p>
                                             ) : posts.length > 0 ? (
                                                 posts.slice(0, 9).map((post) => (
-                                                    <div className="ofukuwake__col" key={post.id}>
-                                                        <span className="ofukuwake__col-title">
-                                                            {post._embedded?.["wp:term"]?.[0]?.[0]?.name || "レシピ"}
-                                                        </span>
-                                                        <Link to={`/category/${post.slug}`}>
-                                                            <img
-                                                                src={
-                                                                    post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
-                                                                    "/hoip_headless/assets/img/ofukuwake/img1.jpg"
-                                                                }
-                                                                alt={post.title.rendered}
-                                                                width="301"
-                                                                height="203"
-                                                                className="img-fluid"
-                                                                loading="lazy"
-                                                            />
-                                                        </Link>
-                                                        <div className="ofukuwake__content">
-                                                            <p className="kagoshima__text padding">
-                                                                {post.title.rendered}
-                                                            </p>
-                                                            <span className="ofukuwake__date">
-                                                                {new Date(post.date).toLocaleDateString("ja-JP", {
-                                                                    year: "numeric",
-                                                                    month: "long",
-                                                                    day: "numeric",
-                                                                })}
-                                                            </span>
-                                                            <p className="kagoshima__text">
-                                                                {post.excerpt?.rendered?.replace(/<[^>]+>/g, "") ||
-                                                                    "No description available"}
-                                                            </p>
-                                                            <Link to={`/category/${post.slug}`} className="ofukuwake__btn">
-                                                                つづきを読む
-                                                            </Link>
-                                                        </div>
-                                                    </div>
+                                                    <Card
+                                                        key={post.id}
+                                                        title={post.title.rendered}
+                                                        image={
+                                                            post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+                                                            "/hoip_headless/assets/img/default-placeholder.jpg"
+                                                        }
+                                                        date={new Date(post.date).toISOString().split("T")[0].replace(/-/g, "/")}
+                                                        description={
+                                                            post.excerpt?.rendered?.replace(/<[^>]+>/g, "") || "No description available"
+                                                        }
+                                                        slug={post.slug}
+                                                        // categoryName={getCategoryName(post.categories[0])} // Pass category name
+                                                        categoryName={post._embedded?.["wp:term"]?.[0]?.[0]?.name || "レシピ"} // Pass category name
+                                                    />
                                                 ))
                                             ) : (
                                                 <p>No posts available.</p>

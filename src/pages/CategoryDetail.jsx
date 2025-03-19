@@ -66,7 +66,6 @@ function CategoryDetail() {
         acc[categoryId] = category ? category.name : "Unknown Category";
         return acc;
     }, {}) || {};
-    console.log(post);
     
     return (
         <>

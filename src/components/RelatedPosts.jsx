@@ -7,7 +7,6 @@ function RelatedPosts({ relatedPosts, categories }) {
         const category = categories.find((cat) => cat.id === categoryId);
         return category ? category.name : "Unknown Category";
     };
-
     return (
         <>
             {relatedPosts.length > 0 ? (
@@ -19,11 +18,12 @@ function RelatedPosts({ relatedPosts, categories }) {
                             post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
                             "/hoip_headless/assets/img/default-placeholder.jpg"
                         }
-                        date={new Date(post.date).toLocaleDateString("ja-JP", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                        })}
+                        // date={new Date(post.date).toLocaleDateString("ja-JP", {
+                        //     year: "numeric",
+                        //     month: "long",
+                        //     day: "numeric",
+                        // })}
+                        date={new Date(post.date).toISOString().split("T")[0].replace(/-/g, "/")}
                         description={
                             post.excerpt?.rendered?.replace(/<[^>]+>/g, "") || "No description available"
                         }

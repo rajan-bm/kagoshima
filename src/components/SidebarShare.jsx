@@ -2,12 +2,14 @@ import { useState } from "react";
 
 function SidebarShare() {
     const [copied, setCopied] = useState(false);
+    const currentUrl = encodeURIComponent(window.location.href);
+    const shareText = encodeURIComponent("Check this out!");
 
     const handleCopyLink = (e) => {
         e.preventDefault();
         navigator.clipboard.writeText(window.location.href).then(() => {
             setCopied(true);
-            setTimeout(() => setCopied(false), 2000); // Hide message after 2 seconds
+            setTimeout(() => setCopied(false), 2000);
         });
     };
 
@@ -15,7 +17,13 @@ function SidebarShare() {
         <div className="category__sidebar-share">
             <p className="kagoshima__text">シェアする</p>
             <div className="social" style={{ position: "relative" }}>
-                <a href="#" className="social__link" target="_blank">
+                {/* Twitter Share */}
+                <a
+                    href={`https://twitter.com/intent/tweet?url=${currentUrl}&text=${shareText}`}
+                    className="social__link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
                     <img
                         src="/hoip_headless/assets/img/common/icon_twitter.svg"
                         alt="X"
@@ -25,7 +33,14 @@ function SidebarShare() {
                         className="img-fluid"
                     />
                 </a>
-                <a href="#" className="social__link" target="_blank">
+
+                {/* Instagram - No direct share link, so linking to Instagram */}
+                <a
+                    href="https://www.instagram.com"
+                    className="social__link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
                     <img
                         src="/hoip_headless/assets/img/common/icon_instagram.svg"
                         alt="INSTAGRAM"
@@ -35,7 +50,14 @@ function SidebarShare() {
                         className="img-fluid"
                     />
                 </a>
-                <a href="#" className="social__link line" target="_blank">
+
+                {/* LINE Share */}
+                <a
+                    href={`https://social-plugins.line.me/lineit/share?url=${currentUrl}`}
+                    className="social__link line"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
                     <div className="line-icon">
                         <img
                             src="/hoip_headless/assets/img/common/icon__line.svg"
@@ -47,29 +69,31 @@ function SidebarShare() {
                         />
                     </div>
                 </a>
-                <a href="#" className="social__link" target="_blank" onClick={handleCopyLink}>
+
+                {/* Copy Link */}
+                <a href="#" className="social__link" onClick={handleCopyLink}>
                     <svg
-                        height="512px"
-                        id="Layer_1"
-                        style={{ enableBackground: "new 0 0 512 512" }}
-                        version="1.1"
+                        height="24px"
                         viewBox="0 0 512 512"
-                        width="512px"
-                        xmlSpace="preserve"
+                        width="24px"
                         xmlns="http://www.w3.org/2000/svg"
-                        xmlnsXlink="http://www.w3.org/1999/xlink"
                     >
                         <g>
                             <polygon points="144,416 144,400 144,112 112,112 112,448 352,448 352,416 160,416 " />
-                            <g>
-                                <path d="M325.3,64H160v48v288h192h48V139L325.3,64z M368,176h-80V96h16v64h64V176z" />
-                            </g>
+                            <path d="M325.3,64H160v48v288h192h48V139L325.3,64z M368,176h-80V96h16v64h64V176z" />
                         </g>
                     </svg>
                 </a>
-                {copied && <span style={{ position: "absolute", right0: "0", bottom: "-15px", color: "green", marginLeft: "10px" }}>Copied!</span>}
+
+                {/* Copied Message */}
+                {copied && (
+                    <span style={{ position: "absolute", bottom: "-15px", color: "green", marginLeft: "10px" }}>
+                        Copied!
+                    </span>
+                )}
             </div>
         </div>
-    )
+    );
 }
+
 export default SidebarShare;

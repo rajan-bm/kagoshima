@@ -110,7 +110,7 @@ function Category() {
                                     <p className="category__intro-text kagoshima__text">{currentCategory.description}</p>
                                 </div>
                                 <div className="category__products">
-                                <div className="ofukuwake__row">
+                                    <div className="ofukuwake__row">
                                         {loading ? (
                                             <p>Loading...</p>
                                         ) : posts.length > 0 ? (
@@ -122,11 +122,12 @@ function Category() {
                                                         post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
                                                         "/hoip_headless/assets/img/default-placeholder.jpg"
                                                     }
-                                                    date={new Date(post.date).toLocaleDateString("ja-JP", {
-                                                        year: "numeric",
-                                                        month: "long",
-                                                        day: "numeric",
-                                                    })}
+                                                    // date={new Date(post.date).toLocaleDateString("ja-JP", {
+                                                    //     year: "numeric",
+                                                    //     month: "long",
+                                                    //     day: "numeric",
+                                                    // })}
+                                                    date={new Date(post.date).toISOString().split("T")[0].replace(/-/g, "/")}
                                                     description={
                                                         post.excerpt?.rendered?.replace(/<[^>]+>/g, "") ||
                                                         "No description available"

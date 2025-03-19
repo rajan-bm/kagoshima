@@ -1,6 +1,7 @@
 // import { useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Link } from "react-router-dom";
 
 function Privacy() {
     return (
@@ -10,7 +11,7 @@ function Privacy() {
                 <div className="breadcrumb__wrapper">
                     <ul className="breadcrumb__list">
                         <li className="breadcrumb__item">
-                            <a href="/" className="breadcrumb__link">お福分け青汁</a>
+                            <Link to="/" className="breadcrumb__link">お福分け青汁</Link>
                         </li>
                         <li className="breadcrumb__item">個人情報保護方針</li>
                     </ul>

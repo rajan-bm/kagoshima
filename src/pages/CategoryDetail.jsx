@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { DataContext } from "@/context/DataContext";
 import Header from "@/components/Header";
@@ -66,7 +66,7 @@ function CategoryDetail() {
         acc[categoryId] = category ? category.name : "Unknown Category";
         return acc;
     }, {}) || {};
-    
+
     return (
         <>
             <Header />
@@ -98,12 +98,14 @@ function CategoryDetail() {
                             <div className="breadcrumb__wrapper">
                                 <ul className="breadcrumb__list">
                                     <li className="breadcrumb__item">
-                                        <a href="/" className="breadcrumb__link">お福分け青汁</a>
+                                        <Link to="/" className="breadcrumb__link">
+                                            お福分け青汁
+                                        </Link>
                                     </li>
                                     <li className="breadcrumb__item">
-                                        <a href={`/hoip_headless/category/${post.categories[0]}`} className="breadcrumb__link">
+                                        <Link to={`/hoip_headless/category/${post.categories[0]}` || ""} className="breadcrumb__link">
                                             {categoryNames[post.categories[0]]}
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li
                                         className="breadcrumb__item"

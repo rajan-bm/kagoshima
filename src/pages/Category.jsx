@@ -81,7 +81,6 @@ function Category() {
                     </ul>
                 </div>
             </div>
-
             <main id="main">
                 <section className="category">
                     <a href="#" className="btn-submit -shop">

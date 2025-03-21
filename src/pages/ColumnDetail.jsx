@@ -103,7 +103,12 @@ function ColumnDetail() {
                                         </Link>
                                     </li>
                                     <li className="breadcrumb__item">
-                                        <Link to={`/hoip_headless/category/${post.categories[0]}` || ""} className="breadcrumb__link">
+                                        <Link to="/column" className="breadcrumb__link">
+                                            お役立ちコラム
+                                        </Link>
+                                    </li>
+                                    <li className="breadcrumb__item">
+                                        <Link to={`/hoip_headless/column/${post.categories[0]}` || ""} className="breadcrumb__link">
                                             {categoryNames[post.categories[0]]}
                                         </Link>
                                     </li>

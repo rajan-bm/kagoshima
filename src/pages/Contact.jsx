@@ -28,13 +28,15 @@ function Contact() {
         phone: "",
         message: "",
     });
-    const [status, setStatus] = useState("");
+    const [status, setStatus] = useState(""); // Message text
+    const [isSuccess, setIsSuccess] = useState(false); // Success flag
     const [errors, setErrors] = useState({});
     const counter = useRef(0); // For dynamic _wpcf7_unit_tag
 
     useEffect(() => {
         loadPages({ per_page: 1, slug: "contact" });
-    }, []);
+    }, [loadPages]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
@@ -42,21 +44,24 @@ function Contact() {
             [name]: value,
         }));
     };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setStatus("");
+        setIsSuccess(false); // Reset success state
         setErrors({});
         const wordpressUrl = "https://cms.aozora-test.info/neta";
         const formId = "115";
         counter.current += 1; // Increment counter for unique unit tag
         const unitTag = `wpcf7-f${formId}-o${counter.current}`;
         const formBody = new FormData();
-        formBody.append("name", formData.name);
-        formBody.append("company-name", formData.company);
-        formBody.append("email", formData.mail);
-        formBody.append("phone-number", formData.phone);
-        formBody.append("textarea", formData.message);
+        formBody.append("fullname", formData.name); // Match input name
+        formBody.append("companyname", formData.company); // Match input name
+        formBody.append("email", formData.mail); // Match input name
+        formBody.append("phone-number", formData.phone); // Match input name
+        formBody.append("textarea", formData.message); // Match input name
         formBody.append("_wpcf7_unit_tag", unitTag); // Add unit tag
+
         try {
             const url = `${wordpressUrl}/wp-json/contact-form-7/v1/contact-forms/${formId}/feedback`;
             const response = await fetch(url, {
@@ -66,14 +71,17 @@ function Contact() {
             const result = await response.json();
             const normalized = normalizeContactForm7Response(result);
             setStatus(normalized.message);
+            setIsSuccess(normalized.isSuccess); // Set success state
             setErrors(normalized.validationError);
             if (normalized.isSuccess) {
-                setFormData({ name: "", company: "", mail: "", phone: "", message: "" });
+                setFormData({ name: "", company: "", mail: "", phone: "", message: "" }); // Reset form
             }
         } catch (error) {
             setStatus("送信中にエラーが発生しました。");
+            setIsSuccess(false); // Error state
         }
     };
+
     return (
         <>
             <Header />
@@ -153,6 +161,7 @@ function Contact() {
                                         id="phone"
                                         value={formData.phone}
                                         onChange={handleChange}
+                                        pattern="0\d{1,3}-\d{3,4}-\d{4}|0\d{9,10}"
                                     />
                                     {errors["phone-number"] && (
                                         <p className="error">{errors["phone-number"]}</p>
@@ -175,11 +184,20 @@ function Contact() {
                             </div>
                             <div className="btn-grp">
                                 <button type="submit" className="btn-submit">
-                                    <img src="./assets/img/common/mail-white.png" alt="Contact" width="31" height="23" loading="lazy" className="img-fluid" />
+                                    <img
+                                        src="/hoip_headless/assets/img/common/mail-white.png"
+                                        alt="Contact"
+                                        width="31"
+                                        height="23"
+                                        loading="lazy"
+                                        className="img-fluid"
+                                    />
                                     <span>お問い合わせをする</span>
                                 </button>
                             </div>
-                            {status && <p className="error">{status}</p>}
+                            {status && (
+                                <p className={isSuccess ? "success" : "error"}>{status}</p>
+                            )}
                         </form>
                     </div>
                 </section>

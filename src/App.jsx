@@ -13,11 +13,11 @@ function App() {
             <Router basename="/hoip_headless/">
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/column" element={<Column />} />
+                    <Route path="/column/" element={<Column />} />
                     <Route path="/column/:categorySlug" element={<ColumnCategory />} />
                     <Route path="/column/:categorySlug/:postSlug" element={<ColumnDetail />} />
-                    <Route path="/contact" element={<Contact />} />
-                    <Route path="/privacy" element={<Privacy />} />
+                    <Route path="/contact/" element={<Contact />} />
+                    <Route path="/privacy/" element={<Privacy />} />
                 </Routes>
             </Router>
         </DataProvider>

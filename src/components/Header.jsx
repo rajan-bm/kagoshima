@@ -3,14 +3,12 @@ import { useState, useEffect } from "react";
 
 function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
     // Toggle menu for mobile (below 992px)
     const toggleMenu = () => {
         if (window.innerWidth < 992) {
             setIsMenuOpen((prev) => !prev);
         }
     };
-
     // Handle resize to close menu on desktop
     useEffect(() => {
         const handleResize = () => {
@@ -18,10 +16,8 @@ function Header() {
                 setIsMenuOpen(false);
             }
         };
-
         // Add resize listener
         window.addEventListener("resize", handleResize);
-
         // Cleanup listener on unmount
         return () => {
             window.removeEventListener("resize", handleResize);
@@ -73,7 +69,7 @@ function Header() {
                                 </Link>
                             </li>
                             <li className="nav__item">
-                                <Link to="/category/" onClick={() => setIsMenuOpen(false)}>
+                                <Link to="/column/" onClick={() => setIsMenuOpen(false)}>
                                     お役立ち情報
                                 </Link>
                             </li>

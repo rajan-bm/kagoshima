@@ -133,7 +133,7 @@ function HomeServices() {
                                             )}
                                         </div>
                                         <div className="ofukuwake__button">
-                                            <a href="/hoip_headless/category" className="primary__btn category__products-more">もっと見る</a>
+                                            <a href="/hoip_headless/column" className="primary__btn category__products-more">もっと見る</a>
                                         </div>
                                     </div>
                                 </div>

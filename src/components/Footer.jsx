@@ -43,7 +43,7 @@ function Footer() {
             <footer className="footer" id="footer">
                 <div className="footer__wrapper">
                     <div className="footer__logo">
-                        <a href="/" className="footer__logo-link">
+                        <a href="/hoip_headless" className="footer__logo-link">
                             <img
                                 src="/hoip_headless/assets/img/common/company_logo.png"
                                 alt="hoip"

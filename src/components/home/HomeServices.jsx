@@ -91,11 +91,7 @@ function HomeServices() {
                     </div>
                     <div className="services__bg2">
                         <button type="submit" className="btn-submit">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="31px"
-                                height="23px">
-                                <image x="0px" y="0px" width="31px" height="23px"
-                                    xlinkHref="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAXCAQAAABZ9FzfAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwYMNxeFmhlxAAABLUlEQVQ4y+3UOy+DURjA8f/7tovF4JJ0MHXBKDGYSYpECBEjn0LiE0jTmEQaNrtR4kOgSheXXUOkxVCJuvwNbbShSt/ZOdvJ88tzyZMTCMuME0c6OwFFtgJXyVDihaBDLgmuAs8pk+K1Qwwwzl6cGGUqETBc8xTyTjwShhgh5qyYsVc6vLMWfMRjH3313rQ9f6YLFtSiN3jhvkmzatl1+3+l856pOScc8xYvPBBx0B31wYx9P9I58+qJKUNxxLsGRxxyU7033WIWS56qeSeN1V9Gv/JaFVv1RhqzWLSg5p3+pD/yWhVZteSGiXqvh01Zf+WIw26rVfXIKcMWEW15rZE1Z75lbeLtN+6SdPvFCyMu7D8nJOQton3BOM8M0EU1wl+XpDtwhV1KkXiC3Afe4ny+DPKoEAAAAABJRU5ErkJggg==" />
-                            </svg>
+                            <img src="/hoip_headless/assets/img/common/mail-white.png" alt="Contact" width="31" height="23" loading="lazy" className="img-fluid" />
                             <span> お問い合わせをする</span>
                         </button>
                     </div>
@@ -128,8 +124,8 @@ function HomeServices() {
                                                             post.excerpt?.rendered?.replace(/<[^>]+>/g, "") || "No description available"
                                                         }
                                                         slug={post.slug}
-                                                        // categoryName={getCategoryName(post.categories[0])} // Pass category name
                                                         categoryName={post._embedded?.["wp:term"]?.[0]?.[0]?.name || "レシピ"} // Pass category name
+                                                        catSlug={post._embedded?.["wp:term"]?.[0]?.[0]?.slug || "レシピ"}
                                                     />
                                                 ))
                                             ) : (

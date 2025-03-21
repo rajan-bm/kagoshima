@@ -18,17 +18,12 @@ function RelatedPosts({ relatedPosts, categories }) {
                             post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
                             "/hoip_headless/assets/img/default-placeholder.jpg"
                         }
-                        // date={new Date(post.date).toLocaleDateString("ja-JP", {
-                        //     year: "numeric",
-                        //     month: "long",
-                        //     day: "numeric",
-                        // })}
                         date={new Date(post.date).toISOString().split("T")[0].replace(/-/g, "/")}
                         description={
                             post.excerpt?.rendered?.replace(/<[^>]+>/g, "") || "No description available"
                         }
                         slug={post.slug}
-                        categoryName={getCategoryName(post.categories[0])} // Pass category name
+                        categoryName={getCategoryName(post.categories[0])}
                     />
                 ))
             ) : (

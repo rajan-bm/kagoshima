@@ -11,7 +11,7 @@ import RelatedPosts from "@/components/RelatedPosts";
 import SidebarShop from "@/components/SidebarShop";
 import SidebarShare from "@/components/SidebarShare";
 
-function CategoryDetail() {
+function ColumnDetail() {
     const { slug } = useParams();
     const { fetchPostBySlug, fetchRelatedPosts, categories, loading } = useContext(DataContext);
     const [post, setPost] = useState(null);
@@ -117,20 +117,7 @@ function CategoryDetail() {
                         <main id="main">
                             <section className="category category-detail">
                                 <a href="#" className="btn-submit -shop">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        xmlnsXlink="http://www.w3.org/1999/xlink"
-                                        width="24px"
-                                        height="30px"
-                                    >
-                                        <image
-                                            x="0px"
-                                            y="0px"
-                                            width="24px"
-                                            height="30px"
-                                            xlinkHref="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAeCAQAAACcJxZuAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwcPHyTd7Q/xAAABxUlEQVQ4y43Uv2sTcRiA8U++RAM2tSlFWlpjG3BwFHFwcRBXF/+Ciu6OLoKTOIjg1kF06VhQqIi421HBqSpif6m01bba2tSKbV6HxGAT7eW54Xjv3ufee9+XO6HtOB2PYi2W40Ecbb/bnj4atViNezEe1fgcp7KESmzHRPSGEIPxKt5GYX9hLDaivxmdiYir+wuLcWtP/Dim9mbk1TlhSE3FgF3n5BpXaxacd0FVzrz3aFS4EbuRxVZcCSEXFC1aNanmrJPu225WCCWjnnsp75IVx+3WJxNxM4S4EzstPRUj4noI8TTWoxgSBvAVvDPZ7OpPF29sgVlFXeRRxjcw4YmdPcKWi36BOUm/5YThpnDXa932MuaZhBkM1iuMNIXbxlVbhGsOqWG5nplHpREybVorLxrnzbqQcMRPS7LYrD86SQ5bsp4pVNUMkhSUfGxMYj82rCnJJQU95jPTqVrU40DSp2CmA4EFJQeTwcaMs5lR1J2U8aEjYVbOQFKhgxlpvMdQMkLbdv/NCoaTYfWlZLOJStJny/eOhZH6njsVdhxLes21fAP/44sl5bwuOyodCckPFTGV+b/4m4e5KLusr6MK4ZOx3400XteAB4VZAAAAAElFTkSuQmCC"
-                                        />
-                                    </svg>
+                                    <img src="/hoip_headless/assets/img/common/shop-white.png" alt="Contact" width="24" height="30" loading="lazy" className="img-fluid" />
                                     <span>オンラインショップで購入する</span>
                                 </a>
                                 <div className="container -lg">
@@ -154,6 +141,19 @@ function CategoryDetail() {
                                                 </div>
                                                 <h4 className="heading__sec">{post.title?.rendered}</h4>
                                                 <TableOfContents toc={toc} />
+                                            </div>
+                                            <div className="category__top">
+                                                <img
+                                                    src={
+                                                        post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+                                                        "/hoip_headless/assets/img/default-placeholder.jpg"
+                                                    }
+                                                    alt={post.title?.rendered || "No Feature Image"}
+                                                    width="100%"
+                                                    height="512"
+                                                    className="img-fluid"
+                                                    loading="lazy"
+                                                />
                                             </div>
                                             <Post post={post} />
                                         </div>
@@ -186,4 +186,4 @@ function CategoryDetail() {
     );
 }
 
-export default CategoryDetail;
+export default ColumnDetail;

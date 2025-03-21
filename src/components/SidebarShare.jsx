@@ -87,8 +87,8 @@ function SidebarShare() {
 
                 {/* Copied Message */}
                 {copied && (
-                    <span style={{ position: "absolute", bottom: "-15px", color: "green", marginLeft: "10px" }}>
-                        Copied!
+                    <span className="copied">
+                        クリックボードにコピーされました
                     </span>
                 )}
             </div>

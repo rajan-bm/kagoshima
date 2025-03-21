@@ -8,39 +8,51 @@ import CategorySidebar from "@/components/CategorySidebar";
 import SidebarShop from "@/components/SidebarShop";
 import SidebarShare from "@/components/SidebarShare";
 
-function Category() {
-    const { slug } = useParams();
+function ColumnCategory() {
+    const { categorySlug } = useParams();
     const { posts, loadPosts, categories, loading } = useContext(DataContext);
     const [visiblePosts, setVisiblePosts] = useState(6);
 
     useEffect(() => {
-        if (categories.length === 0) return; // Wait for categories to load
-
-        if (slug) {
-            const category = categories.find((cat) => cat.slug === slug);
-            if (category) {
-                loadPosts({ categories: category.id, per_page: 100 });
-            } else {
-                console.warn(`Category with slug "${slug}" not found`);
-                loadPosts({ per_page: 100 }); // Fallback to all posts
-            }
-        } else {
-            const firstCategoryId = categories[0]?.id || 5;
-            loadPosts({ categories: firstCategoryId, per_page: 100 });
+        if (categories.length === 0) {
+            return;
         }
-        setVisiblePosts(6); // Reset to 6 when category changes
 
-    }, [slug, categories, loadPosts]);
+        if (categorySlug) {
+            const category = categories.find((cat) => cat.slug === categorySlug);
+            
+            if (category) {
+            
+                loadPosts({ categories: category.id, per_page: 100, _embed: true }); // Changed to 100
+            } else {
+            
+                loadPosts({ per_page: 100, _embed: true }); // Changed to 100
+            }
+        }
+        setVisiblePosts(6);
+    }, [categorySlug, categories, loadPosts]);
 
-    // Determine the current category
-    const currentCategory = slug
-        ? categories.find((cat) => cat.slug === slug) || { name: "レシピ" }
-        : categories[0] || { name: "レシピ" };
+    const currentCategory = categories.find((cat) => cat.slug === categorySlug);
 
-    // Handle "Load More" button click
+    if (!currentCategory) {
+        return (
+            <>
+                <Header />
+                <main id="main">
+                    <section className="category">
+                        <div className="container -lg">
+                            <p>Category "{categorySlug}" not found.</p>
+                        </div>
+                    </section>
+                </main>
+                <Footer />
+            </>
+        );
+    }
+
     const handleLoadMore = (e) => {
-        e.preventDefault(); // Prevent default anchor behavior
-        setVisiblePosts((prev) => prev + 6); // Load 6 more posts
+        e.preventDefault();
+        setVisiblePosts((prev) => Math.min(prev + 6, posts.length));
     };
 
     return (
@@ -50,9 +62,10 @@ function Category() {
                 <picture className="pagetitlebar__picture">
                     <img
                         src={
-                            currentCategory.acf?.cat_image?.source_url || "/hoip_headless/assets/img/pagetitlebar/pagetitlebar-category.jpg"
+                            currentCategory.acf?.cat_image?.source_url ||
+                            "/hoip_headless/assets/img/pagetitlebar/pagetitlebar-category.jpg"
                         }
-                        alt="{currentCategory.name}"
+                        alt={currentCategory.name}
                         width="100%"
                         height="179"
                         loading="lazy"
@@ -63,7 +76,6 @@ function Category() {
                     <span>おいしい自然は</span>鹿児島にありました。
                 </h1>
             </div>
-
             <div className="breadcrumb">
                 <div className="breadcrumb__wrapper">
                     <ul className="breadcrumb__list">
@@ -73,7 +85,7 @@ function Category() {
                             </Link>
                         </li>
                         <li className="breadcrumb__item">
-                            <Link to="/category" className="breadcrumb__link">
+                            <Link to="/column" className="breadcrumb__link">
                                 お役立ちコラム
                             </Link>
                         </li>
@@ -84,20 +96,14 @@ function Category() {
             <main id="main">
                 <section className="category">
                     <a href="#" className="btn-submit -shop">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            xmlnsXlink="http://www.w3.org/1999/xlink"
-                            width="24px"
-                            height="30px"
-                        >
-                            <image
-                                x="0px"
-                                y="0px"
-                                width="24px"
-                                height="30px"
-                                xlinkHref="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAeCAQAAACcJxZuAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwcPHyTd7Q/xAAABxUlEQVQ4y43Uv2sTcRiA8U++RAM2tSlFWlpjG3BwFHFwcRBXF/+Ciu6OLoKTOIjg1kF06VhQqIi421HBqSpif6m01bba2tSKbV6HxGAT7eW54Xjv3ufee9+XO6HtOB2PYi2W40Ecbb/bnj4atViNezEe1fgcp7KESmzHRPSGEIPxKt5GYX9hLDaivxmdiYir+wuLcWtP/Dim9mbk1TlhSE3FgF3n5BpXaxacd0FVzrz3aFS4EbuRxVZcCSEXFC1aNanmrJPu225WCCWjnnsp75IVx+3WJxNxM4S4EzstPRUj4noI8TTWoxgSBvAVvDPZ7OpPF29sgVlFXeRRxjcw4YmdPcKWi36BOUm/5YThpnDXa932MuaZhBkM1iuMNIXbxlVbhGsOqWG5nplHpREybVorLxrnzbqQcMRPS7LYrD86SQ5bsp4pVNUMkhSUfGxMYj82rCnJJQU95jPTqVrU40DSp2CmA4EFJQeTwcaMs5lR1J2U8aEjYVbOQFKhgxlpvMdQMkLbdv/NCoaTYfWlZLOJStJny/eOhZH6njsVdhxLes21fAP/44sl5bwuOyodCckPFTGV+b/4m4e5KLusr6MK4ZOx3400XteAB4VZAAAAAElFTkSuQmCC"
-                            />
-                        </svg>
+                        <img
+                            src="/hoip_headless/assets/img/common/shop-white.png"
+                            alt="Contact"
+                            width="24"
+                            height="30"
+                            loading="lazy"
+                            className="img-fluid"
+                        />
                         <span>オンラインショップで購入する</span>
                     </a>
                     <div className="container -lg">
@@ -106,7 +112,9 @@ function Category() {
                                 <h2 className="kagoshima__text">お役立ちコラム</h2>
                                 <div className="category__intro">
                                     <h3 className="category__intro-heading">{currentCategory.name}</h3>
-                                    <p className="category__intro-text kagoshima__text">{currentCategory.description}</p>
+                                    <p className="category__intro-text kagoshima__text">
+                                        {currentCategory.description}
+                                    </p>
                                 </div>
                                 <div className="category__products">
                                     <div className="ofukuwake__row">
@@ -118,14 +126,9 @@ function Category() {
                                                     key={post.id}
                                                     title={post.title.rendered}
                                                     image={
-                                                        post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+                                                        post.featured_media_url ||
                                                         "/hoip_headless/assets/img/default-placeholder.jpg"
                                                     }
-                                                    // date={new Date(post.date).toLocaleDateString("ja-JP", {
-                                                    //     year: "numeric",
-                                                    //     month: "long",
-                                                    //     day: "numeric",
-                                                    // })}
                                                     date={new Date(post.date).toISOString().split("T")[0].replace(/-/g, "/")}
                                                     description={
                                                         post.excerpt?.rendered?.replace(/<[^>]+>/g, "") ||
@@ -133,6 +136,8 @@ function Category() {
                                                     }
                                                     slug={post.slug}
                                                     categoryName={currentCategory.name}
+                                                    linkTo={`/column/${categorySlug}/${post.slug}`}
+                                                    catSlug={currentCategory.slug}
                                                 />
                                             ))
                                         ) : (
@@ -182,4 +187,4 @@ function Category() {
     );
 }
 
-export default Category;
+export default ColumnCategory;

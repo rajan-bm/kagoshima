@@ -27,7 +27,7 @@ function Post({ post }) {
     return (
         <div>            
             <Toc content={modifiedContent} />
-            <div className="category__products wp-content">
+            <div className="category__products wp-content" style={{ marginTop: "40px" }}>
                 <div dangerouslySetInnerHTML={{ __html: modifiedContent }} />
             </div>
         </div>

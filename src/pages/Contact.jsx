@@ -16,7 +16,6 @@ const normalizeContactForm7Response = (response) => {
                 return [key, error.message];
             }) || []
         );
-
     return { isSuccess, message, validationError };
 };
 
@@ -36,7 +35,6 @@ function Contact() {
     useEffect(() => {
         loadPages({ per_page: 1, slug: "contact" });
     }, []);
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
@@ -44,17 +42,14 @@ function Contact() {
             [name]: value,
         }));
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setStatus("");
         setErrors({});
-
         const wordpressUrl = "https://cms.aozora-test.info/neta";
         const formId = "115";
         counter.current += 1; // Increment counter for unique unit tag
         const unitTag = `wpcf7-f${formId}-o${counter.current}`;
-
         const formBody = new FormData();
         formBody.append("name", formData.name);
         formBody.append("company-name", formData.company);
@@ -62,31 +57,23 @@ function Contact() {
         formBody.append("phone-number", formData.phone);
         formBody.append("textarea", formData.message);
         formBody.append("_wpcf7_unit_tag", unitTag); // Add unit tag
-
         try {
             const url = `${wordpressUrl}/wp-json/contact-form-7/v1/contact-forms/${formId}/feedback`;
-            console.log("Submitting to:", url);
             const response = await fetch(url, {
                 method: "POST",
                 body: formBody,
             });
-            console.log("Response status:", response.status);
             const result = await response.json();
-            console.log("Response body:", result);
-
             const normalized = normalizeContactForm7Response(result);
             setStatus(normalized.message);
             setErrors(normalized.validationError);
-
             if (normalized.isSuccess) {
                 setFormData({ name: "", company: "", mail: "", phone: "", message: "" });
             }
         } catch (error) {
             setStatus("送信中にエラーが発生しました。");
-            console.error("Error submitting form:", error);
         }
     };
-
     return (
         <>
             <Header />
@@ -188,24 +175,11 @@ function Contact() {
                             </div>
                             <div className="btn-grp">
                                 <button type="submit" className="btn-submit">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        xmlnsXlink="http://www.w3.org/1999/xlink"
-                                        width="31px"
-                                        height="23px"
-                                    >
-                                        <image
-                                            x="0px"
-                                            y="0px"
-                                            width="31px"
-                                            height="23px"
-                                            xlinkHref="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAXCAQAAABZ9FzfAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwYMNxeFmhlxAAABLUlEQVQ4y+3UOy+DURjA8f/7tovF4JJ0MHXBKDGYSYpECBEjn0LiE0jTmEQaNrtR4kOgSheXXUOkxVCJuvwNbbShSt/ZOdvJ88tzyZMTCMuME0c6OwFFtgJXyVDihaBDLgmuAs8pk+K1Qwwwzl6cGGUqETBc8xTyTjwShhgh5qyYsVc6vLMWfMRjH3313rQ9f6YLFtSiN3jhvkmzatl1+3+l856pOScc8xYvPBBx0B31wYx9P9I58+qJKUNxxLsGRxxyU7033WIWS56qeSeN1V9Gv/JaFVv1RhqzWLSg5p3+pD/yWhVZteSGiXqvh01Zf+WIw26rVfXIKcMWEW15rZE1Z75lbeLtN+6SdPvFCyMu7D8nJOQton3BOM8M0EU1wl+XpDtwhV1KkXiC3Afe4ny+DPKoEAAAAABJRU5ErkJggg=="
-                                        />
-                                    </svg>
+                                    <img src="./assets/img/common/mail-white.png" alt="Contact" width="31" height="23" loading="lazy" className="img-fluid" />
                                     <span>お問い合わせをする</span>
                                 </button>
                             </div>
-                            {status && <p>{status}</p>}
+                            {status && <p className="error">{status}</p>}
                         </form>
                     </div>
                 </section>

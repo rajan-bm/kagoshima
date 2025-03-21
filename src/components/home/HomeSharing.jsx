@@ -1,7 +1,6 @@
 function HomeSharing() {
     return (
         <>
-
             <section className="sharing" id="sharing">
                 <div className="container -sm">
                     <div className="section-header -white">
@@ -11,10 +10,8 @@ function HomeSharing() {
 
                     <div className="sharing__block">
                         <p className="sharing__text">
-                            鹿児島のフードクリエイターの渡辺千佳子さんが20年飲み続けている青汁をパッケージ化しました。<br />
-                            ご自身とご家族が毎日飲み続けられる、安心でシンプルな素材だけを配合した、こだわりの青汁です。健康な身体とつやつやのお肌は、幸せのベースになります。幸せのお福分けになりますよう、願いをこめてお届けします。喜界島の信頼なる農園の素材を使用してます。材料が入手した場合のみの限定販売となります。３つの成分を1:1:1の割合で配合しています。
+                            鹿児島のフードクリエイターの渡辺千佳子さんが20年飲み続けている青汁をパッケージ化しました。<br />ご自身とご家族が毎日飲み続けられる、安心でシンプルな素材だけを配合した、こだわりの青汁です。健康な身体とつやつやのお肌は、幸せのベースになります。幸せのお福分けになりますよう、願いをこめてお届けします。鹿児島の信頼なる農園の素材を使用してます。良質な桑葉を入手できた場合のみの時期限定販売となります。
                         </p>
-
                         <div className="sharing__row">
                             <div className="sharing__col">
                                 <p className="sharing__circle">

@@ -14,7 +14,7 @@ function CategorySidebar() {
                 categories.map((cat) => (
                     <Link
                         key={cat.id}
-                        to={`/category/${cat.slug}`} // Link to category slug
+                        to={`/column/${cat.slug}`} // Link to category slug
                         className="category__sidebar-item"
                     >
                         {cat.name}

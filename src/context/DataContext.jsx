@@ -124,3 +124,70 @@ export const DataProvider = ({ children }) => {
         </DataContext.Provider>
     );
 };
+
+// import { createContext, useState, useCallback, useEffect } from "react";
+// import { fetchContent } from "@/api/wordpressApi";
+
+// export const DataContext = createContext();
+
+// export const DataProvider = ({ children }) => {
+//     const [posts, setPosts] = useState([]);
+//     const [relposts, setRelposts] = useState([]);
+//     const [pages, setPages] = useState([]);
+//     const [categories, setCategories] = useState([]);
+//     const [loading, setLoading] = useState(false);
+
+//     const loadPosts = useCallback(async (params = {}) => {
+//         setLoading(true);
+//         try {
+//             const data = await fetchContent("posts", params);
+//             console.log("Posts fetched from API:", data);
+//             console.log("Number of posts fetched:", data.length);
+//             setPosts(data);
+//         } catch (error) {
+//             console.error("Error loading posts:", error);
+//             setPosts([]);
+//         } finally {
+//             setLoading(false);
+//         }
+//     }, []);
+
+//     const fetchCategories = useCallback(async (params = {}) => {
+//         setLoading(true);
+//         try {
+//             const data = await fetchContent("categories", params);
+//             console.log("Categories fetched:", data);
+//             setCategories(data);
+//             return data;
+//         } catch (error) {
+//             console.error("Error loading categories:", error.message, error.stack);
+//             setCategories([]);
+//             return [];
+//         } finally {
+//             setLoading(false);
+//         }
+//     }, []);
+
+//     // Pre-fetch categories on mount
+//     useEffect(() => {
+//         fetchCategories();
+//     }, [fetchCategories]);
+
+//     return (
+//         <DataContext.Provider
+//             value={{
+//                 posts,
+//                 relposts,
+//                 pages,
+//                 categories,
+//                 loading,
+//                 loadPosts,
+//                 // Include other functions if needed
+//             }}
+//         >
+//             {children}
+//         </DataContext.Provider>
+//     );
+// };
+
+// export default DataProvider;

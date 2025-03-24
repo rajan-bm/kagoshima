@@ -13,7 +13,8 @@ function Post({ post }) {
         // Parse the content and add IDs to headings
         const parser = new DOMParser();
         const doc = parser.parseFromString(post.content.rendered, 'text/html');
-        const headings = doc.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        // const headings = doc.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        const headings = doc.querySelectorAll('h2');
 
         headings.forEach((heading, index) => {
             const id = heading.id || `heading-${index}`;
@@ -27,7 +28,7 @@ function Post({ post }) {
     return (
         <div>            
             <Toc content={modifiedContent} />
-            <div className="category__products wp-content" style={{ marginTop: "40px" }}>
+            <div className="category__products the-content" style={{ marginTop: "40px" }}>
                 <div dangerouslySetInnerHTML={{ __html: modifiedContent }} />
             </div>
         </div>

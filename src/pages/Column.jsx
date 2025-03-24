@@ -109,7 +109,7 @@ function Column() {
                                                         }
                                                         slug={post.slug}
                                                         categoryName={categoryName}
-                                                        categorySlug={categorySlug} // Pass category slug
+                                                        catSlug={categorySlug} // Pass category slug
                                                     />
                                                 );
                                             })

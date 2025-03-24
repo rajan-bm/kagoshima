@@ -24,6 +24,7 @@ function RelatedPosts({ relatedPosts, categories }) {
                         }
                         slug={post.slug}
                         categoryName={getCategoryName(post.categories[0])}
+                        catSlug={post._embedded?.["wp:term"]?.[0]?.[0]?.slug || "レシピ"}
                     />
                 ))
             ) : (

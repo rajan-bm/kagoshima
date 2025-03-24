@@ -29,7 +29,7 @@ function ColumnDetail() {
                         setPost(fetchedPost);
                         const parser = new DOMParser();
                         const doc = parser.parseFromString(fetchedPost.content.rendered, "text/html");
-                        const headings = doc.querySelectorAll("h1, h2, h3, h4, h5, h6");
+                        const headings = doc.querySelectorAll("h2");
                         const tocItems = Array.from(headings).map((heading, index) => {
                             const text = heading.textContent.trim();
                             const id = heading.getAttribute("id") || `${text.replace(/\s+/g, "-").toLowerCase()}-${index}`;
